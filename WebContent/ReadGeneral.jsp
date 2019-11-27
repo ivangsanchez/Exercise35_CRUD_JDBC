@@ -11,7 +11,7 @@
 <body>
 	<h2>Read General</h2>
 	<form action="ReadGeneralServlet" method="post">
-		<input type="submit" value="List of Prodducts"> 
+		<input class ="btn btn-primary" type="submit" value="List of Prodducts"> 
 	
 	</form>
 	
