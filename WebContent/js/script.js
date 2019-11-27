@@ -1,9 +1,9 @@
 /**
  * 
- * 
- */
-
-window.onload=function()
+ * window.onload=function()
  {
 	 alert("Hola Prro");
  }
+ * 
+ */
+
