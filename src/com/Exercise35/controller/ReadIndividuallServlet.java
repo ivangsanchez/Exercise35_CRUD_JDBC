@@ -111,6 +111,8 @@ public class ReadIndividuallServlet extends HttpServlet {
 					}
 					
 				}
+				
+				output.close();
 	}
 
 }

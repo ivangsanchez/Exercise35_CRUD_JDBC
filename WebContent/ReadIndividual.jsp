@@ -19,7 +19,7 @@
 	</p>
 	
 	<p>
-	<input type="submit" value="List of Prodducts"> 
+	<input class ="btn btn-primary" type="submit" value="List of Prodducts"> 
 	</p>
 	
 	</form>
