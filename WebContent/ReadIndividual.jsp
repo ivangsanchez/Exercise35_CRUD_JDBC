@@ -10,7 +10,23 @@
 </head>
 <body>
 	<h2>Read Individual</h2>
-	<br>
+	
+	<form action="ReadIndividuallServlet" method="post">
+	
+	<p>
+		<label for="txtProducto">ID del Producto a Buscar:</label>
+		<input class="form-control" type="text" id="txtIdProducto" name="txIdProducto">
+	</p>
+	
+	<p>
+	<input type="submit" value="List of Prodducts"> 
+	</p>
+	
+	</form>
+	
+	<p>
+	<a href="index.jsp">Return</a>
+	</p>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
