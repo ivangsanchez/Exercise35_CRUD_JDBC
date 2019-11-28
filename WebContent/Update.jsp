@@ -13,8 +13,8 @@
 	
 	<form class="form-group" action="UpdateServlet" method="post">
 		<p>
-		<label for="txtProduct">Id Product</label>
-		<input class="form-control" type="text" id="txtIdProduct" name="txIdProduct">
+		<label for="txtIdProduct">Id Product</label>
+		<input class="form-control" type="text" id="txtIdProduct" name="txtIdProduct">
 		</p>
 		
 		<p>

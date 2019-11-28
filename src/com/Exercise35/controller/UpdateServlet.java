@@ -23,85 +23,71 @@ public class UpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// se añade una configuracion para que pueda leer Ñ
+	
 		response.setContentType("text/html charset='utf-8'");
-		// se crea un objeto  de printwriter para hacer mas limpio a la hora de imprimir
 		PrintWriter output = response.getWriter();
 		
+		//1. Declaramos variables
+		Products myProduct = new Products();
+		myProduct.setIdProduct(Integer.parseInt(request.getParameter("txtIdProduct")));
+		myProduct.setNameProduct(request.getParameter("txtNameProduct"));
+		myProduct.setPriceProduct(Double.parseDouble(request.getParameter("txtPriceProduct")));
 		
-		// 1. Declaramos Variables
-				String urlServer="jdbc:mysql://localhost:3306/tienda?useSSL=false&serverTimezone=UTC";
-				String username="root";
-				String pass="admin";
+		String urlServer="jdbc:mysql://localhost:3306/tienda?useSSL=false&serverTimezone=UTC";
+		String username="root";
+		String pass="admin";
+		//String sentenciaSQLRead="SELECT * FROM Productos WHERE idProducto="+myProduct.getIdProduct();
+		String sentenciaSQLUpdate="UPDATE productos SET Nombre_Producto='"+myProduct.getNameProduct()+"', Precio_Producto="+myProduct.getPriceProduct()+" WHERE Id_Producto="+myProduct.getIdProduct();
+		int rowsAffected=0;
+		
+		//2. Declaramos objetos
+		Connection conn = null;
+		Statement stmnt = null;
+		ResultSet rs = null;
+		try
+		{
+			//3. Instanciamos el driver
+			Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+			//4. Abrimos la conexión
+			conn = DriverManager.getConnection(urlServer, username, pass);
+			//5. Preparamos el statement
+			stmnt = conn.createStatement();
+			
+			//6. Ejecutamos la sentencia sql
 
-				// se crea un objeto de la clase Products
-				Products myProduct=new Products();
-				
-				// se utiliza el set de la clase productos y se le coloca el identificador del text box llamado txtIdProducto
-				myProduct.setIdProduct(Integer.parseInt(request.getParameter("txIdProducto")));
-				myProduct.setNameProduct(request.getParameter("txtNameProduct"));
-				myProduct.setPriceProduct(Double.parseDouble("txtPriceProduct"));
-				
-				String sentenciaSQLRead="SELECT from productos where Id_Producto="+myProduct.getIdProduct();
-				String sentenciaSQLUpdate="UPDATE from productos where Id_Producto="+myProduct.getIdProduct();
-				
-				int rowsAfected=0;
-								
-				// 2. Declaramos objetos
-				Connection conn=null;
-				Statement stmnt=null;
-				
-				
-				
-				try {
-					//3. Instanciamos en Driver
-					Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
-					
-					//4. Abrimos conexión
-					conn=DriverManager.getConnection(urlServer,username,pass);
-					
-					//5.Preparamos el statent
-					stmnt=conn.createStatement();
-					
-					//6.Ejecutamos sentencia SQL
-					rowsAfected=stmnt.executeUpdate(sentenciaSQL);
-					
-					//7. Procesamos la salida
-					if(rowsAfected>0)
-					{
-						output.append("registro borrado con exito!");
-					}
-					else
-					{
-						output.append("registro encontrado con exito");
-					}
-				
-					
-				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-						| InvocationTargetException | NoSuchMethodException | SecurityException
-						| ClassNotFoundException | SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				finally
+				rowsAffected=stmnt.executeUpdate(sentenciaSQLUpdate);
+			//7. Procesamos los datos
+				if(rowsAffected>0)
 				{
-					//8. Cerramos la conexiones
-					try {
-						
-						stmnt.close();
-						conn.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
+					output.append("Registro Modificado con éxito!!!");
 				}
-				
-				output.close();
-		
+				else
+				{
+					output.append("Registro NO pudo ser Modificado!!!");
+				}
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				stmnt.close();
+				conn.close();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		//8. Cerramos la conexión
+		output.close();
 		
 	}
 
 }
+
+
